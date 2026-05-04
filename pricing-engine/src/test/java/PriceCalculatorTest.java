@@ -11,7 +11,7 @@ public class PriceCalculatorTest {
         double[] prices = {100, 50};
         int[] qty = {1, 1};
 
-        double result = pc.calc(prices, qty, "SAVE10", "REGULAR");
+        double result = pc.calc(prices, qty, "SAVE10", CustomerType.REGULAR);
 
         assertTrue(result > 0);
     }

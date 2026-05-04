@@ -11,14 +11,14 @@ public double calculateDiscount(double subtotal, String code, String type) {
     if (code.equals("SAVE10")) discount = subtotal * 0.10;
     if (code.equals("SAVE20")) discount = subtotal * 0.20;
 
-    if (type.equals("VIP")) discount += subtotal * 0.05;
+    if (type == CustomerType.VIP)
 
     return discount;
 }
 public double calculateTax(double amount) {
     return amount * 0.19;
 }
-public double calc(double[] p, int[] q, String c, String t) {
+public double calc(double[] p, int[] q, String c, CustomerType type){
 
     double subtotal = calculateSubtotal(p, q);
     double discount = calculateDiscount(subtotal, c, t);
