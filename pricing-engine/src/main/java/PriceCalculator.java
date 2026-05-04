@@ -1,31 +1,39 @@
-public double calculateSubtotal(double[] prices, int[] qty) {
-    double sum = 0;
-    for (int i = 0; i < prices.length; i++) {
-        sum += prices[i] * qty[i];
+public class PriceCalculator {
+
+    public double calculateSubtotal(double[] prices, int[] qty) {
+        double sum = 0;
+        for (int i = 0; i < prices.length; i++) {
+            sum += prices[i] * qty[i];
+        }
+        return sum;
     }
-    return sum;
-}
-public double calculateDiscount(double subtotal, String code, String type) {
-    double discount = 0;
 
-    if (code.equals("SAVE10")) discount = subtotal * 0.10;
-    if (code.equals("SAVE20")) discount = subtotal * 0.20;
+    public double calculateDiscount(double subtotal, String code, CustomerType type) {
+        double discount = 0;
 
-    if (type == CustomerType.VIP)
+        if (code.equals("SAVE10")) discount = subtotal * 0.10;
+        if (code.equals("SAVE20")) discount = subtotal * 0.20;
 
-    return discount;
-}
-public double calculateTax(double amount) {
-    return amount * 0.19;
-}
-public double calc(double[] p, int[] q, String c, CustomerType type){
+        if (type == CustomerType.VIP) {
+            discount += subtotal * 0.05;
+        }
 
-    double subtotal = calculateSubtotal(p, q);
-    double discount = calculateDiscount(subtotal, c, t);
+        return discount;
+    }
 
-    double afterDiscount = subtotal - discount;
+    public double calculateTax(double amount) {
+        return amount * 0.19;
+    }
 
-    double tax = calculateTax(afterDiscount);
+    public double calc(double[] p, int[] q, String c, CustomerType type) {
 
-    return afterDiscount + tax;
+        double subtotal = calculateSubtotal(p, q);
+        double discount = calculateDiscount(subtotal, c, type);
+
+        double after = subtotal - discount;
+
+        double tax = calculateTax(after);
+
+        return after + tax;
+    }
 }
