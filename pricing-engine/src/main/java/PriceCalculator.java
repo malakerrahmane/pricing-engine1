@@ -1,24 +1,31 @@
-public class PriceCalculator {
-
-    public double calc(double[] prices, int[] qty, String code, String type) {
-
-        double subtotal = 0;
-
-        for (int i = 0; i < prices.length; i++) {
-            subtotal += prices[i] * qty[i];
-        }
-
-        double discount = 0;
-
-        if (code.equals("SAVE10")) discount = subtotal * 0.10;
-        if (code.equals("SAVE20")) discount = subtotal * 0.20;
-
-        if (type.equals("VIP")) discount += subtotal * 0.05;
-
-        double afterDiscount = subtotal - discount;
-
-        double tax = afterDiscount * 0.19;
-
-        return afterDiscount + tax;
+public double calculateSubtotal(double[] prices, int[] qty) {
+    double sum = 0;
+    for (int i = 0; i < prices.length; i++) {
+        sum += prices[i] * qty[i];
     }
+    return sum;
+}
+public double calculateDiscount(double subtotal, String code, String type) {
+    double discount = 0;
+
+    if (code.equals("SAVE10")) discount = subtotal * 0.10;
+    if (code.equals("SAVE20")) discount = subtotal * 0.20;
+
+    if (type.equals("VIP")) discount += subtotal * 0.05;
+
+    return discount;
+}
+public double calculateTax(double amount) {
+    return amount * 0.19;
+}
+public double calc(double[] p, int[] q, String c, String t) {
+
+    double subtotal = calculateSubtotal(p, q);
+    double discount = calculateDiscount(subtotal, c, t);
+
+    double afterDiscount = subtotal - discount;
+
+    double tax = calculateTax(afterDiscount);
+
+    return afterDiscount + tax;
 }
